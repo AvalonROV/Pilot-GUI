@@ -291,26 +291,29 @@ class Window(QWidget):
         print(self.stringToSend) # Print final string
 
     def information(self):
-        # self.comma=","
-        # ----- Collecting Self Parameters of Joystick----#
+        """
+        This function reads parameters from the joystick and sends the formatted string to the ROV.
+        """
         name_joystick = my_joystick.get_name()  # Collects the pre-defined name of joystick
         number_axes = my_joystick.get_numaxes()  # Collects the pre-defined number of axis
         number_buttons = my_joystick.get_numbuttons()  # Collects the pre-defined number of buttons
-        send_scoket.sendto((self.stringToSend.encode()), (HOST, send_port))  # The thing that we send
-        try:
+        send_scoket.sendto((self.stringToSend.encode()), (HOST, send_port))  # Send the string to the ROV
+
+        try:    # Read data from the ROV
             recieved_string = recieve_socket.recv(1024).decode()
             self.complete_recieved_string += recieved_string + '\n'
             self.recieved_string_txtbox.setText(self.complete_recieved_string)
-            #print(self.complete_recieved_string)
         except:
             pass
 
         self.string_formatter()  # Calling the thruster value
 
 
-"""This class is responsible for threading which means runnin two operations
-simultaneously. It emits a signal to define when the above program shoudl be
-updated"""
+"""
+This class is responsible for threading which means runnin two operations
+simultaneously. It emits a signal to define when the above program should be
+updated
+"""
 
 class Worker(QThread):
 
@@ -318,14 +321,13 @@ class Worker(QThread):
         QThread.__init__(self, parent=app)
 
     def run(self):
-        EXIT=False
+        EXIT = False
         while not EXIT:
             for event in pygame.event.get():
-                if event.type==pygame.QUIT:
-                    EXIT=True
+                if event.type == pygame.QUIT:
+                    EXIT = True
             self.emit(SIGNAL('Hello'))
             clock.tick(30) #This determines how fast the frames change per second
-            #time.sleep(1)
         pygame.quit() # This is used to quit pygame and use any internal program within the python
         quit()
 
