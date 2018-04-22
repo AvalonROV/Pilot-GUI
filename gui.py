@@ -222,17 +222,17 @@ class Window(QWidget):
             self.side_factor = 200 * self.power
 
         self.fwd_left_thruster = int(
-            1500 - self.fwd_factor * self.Y_Axis - self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
+            1500 + self.fwd_factor * self.Y_Axis - self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
         self.fwd_right_thruster = int(
-            1500 + self.fwd_factor * self.Y_Axis + self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
+            1500 - self.fwd_factor * self.Y_Axis + self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
         self.bck_left_thruster = int(
             1500 - self.fwd_factor * self.Y_Axis - self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
         self.bck_right_thruster = int(
-            1500 + self.fwd_factor * self.Y_Axis - self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
+            1500 - self.fwd_factor * self.Y_Axis - self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
 
 
         # To go up/down
-        self.front_thruster = int(1500 + self.fwd_factor * self.Rudder)
+        self.front_thruster = int(1500 + self.fwd_factor * self.Rudder*-1)
         self.back_thruster = int(1500 + self.fwd_factor * self.Rudder)
 
         # ------Pitching code------
@@ -284,10 +284,14 @@ class Window(QWidget):
         elif(self.BT_button2 == 1):
             self.BT = 2
 
+        self.stringToSend = str([self.back_thruster, self.bck_left_thruster, self.bck_right_thruster,
+                                 self.front_thruster, self.fwd_right_thruster, self.fwd_left_thruster,
+                                 self.arm_open_button, self.funnel_CW_button)
+
         # Final string to be sent
-        self.stringToSend = str([self.fwd_left_thruster, self.front_thruster, self.fwd_right_thruster,
-                                 self.bck_right_thruster, self.back_thruster, self.bck_left_thruster,
-                                 self.arm, self.funnel, self.BT_button1, LED2, self.BT])
+        # self.stringToSend = str([self.fwd_left_thruster, self.front_thruster, self.fwd_right_thruster,
+        #                          self.bck_right_thruster, self.back_thruster, self.bck_left_thruster,
+        #                          self.arm, self.funnel, self.BT_button1, LED2, self.BT])
         print(self.stringToSend) # Print final string
 
     def information(self):
