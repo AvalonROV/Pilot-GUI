@@ -53,11 +53,11 @@ LED2 = 0
 
 class Window(QWidget):
     """
-    This class is the base class of all user interface objects. 
+    This class is the base class of all user interface objects.
     """
     def __init__(self):
         super(Window, self).__init__()
-        
+
         self.initUI()
         self.string_formatter()
         # ------THREADING-----#
@@ -122,7 +122,7 @@ class Window(QWidget):
         vbox.addLayout(LEDs_hbox)
 
         vbox.addWidget(self.recieved_string_label)
-        
+
         recieved_string_box = QHBoxLayout() #Create layout container
         recieved_string_box.addWidget(self.recieved_string_txtbox)  #Populate the container
         recieved_string_box.addWidget(self.user_input)
@@ -130,9 +130,9 @@ class Window(QWidget):
         vbox.addLayout(recieved_string_box)
 
         self.setLayout(vbox)    #Set the layout
-        
+
         self.setGeometry(300, 300, 300, 150)
-        self.setWindowTitle('Buttons')    
+        self.setWindowTitle('Buttons')
         self.show()
 
     #------------What is to follow should be moved into a seprate file----------------------------
@@ -143,7 +143,7 @@ class Window(QWidget):
 
         The format of the string is: [FL, FU, FR, BR, BU, BL, ARM, FUN, LED1, LED2, BT]
 
-        FL: Forward Left Thruster 
+        FL: Forward Left Thruster
         FU: Forward Up Thruster
         FR: Forward Right Thruster
         BR: Backward Right Thruster
@@ -181,7 +181,7 @@ class Window(QWidget):
         # Bluetooth controls
         self.BT_button1 = my_joystick.get_button(0)
         self.BT_button2 = my_joystick.get_button(1)
-        
+
         # Initital values
         self.BT = 0
         self.funnel = 0
@@ -286,7 +286,7 @@ class Window(QWidget):
 
         self.stringToSend = str([self.back_thruster, self.bck_left_thruster, self.bck_right_thruster,
                                  self.front_thruster, self.fwd_right_thruster, self.fwd_left_thruster,
-                                 self.arm_open_button, self.funnel_CW_button)
+                                 self.arm_open_button, self.funnel_CW_button])
 
         # Final string to be sent
         # self.stringToSend = str([self.fwd_left_thruster, self.front_thruster, self.fwd_right_thruster,
@@ -336,7 +336,7 @@ class Worker(QThread):
         quit()
 
 def main():
-    
+
     ex = Window()
     sys.exit(app.exec_())
 
