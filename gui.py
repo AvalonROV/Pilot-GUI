@@ -171,10 +171,13 @@ class Window(QWidget):
         self.Throttle = my_joystick.get_axis(2)
         self.Yaw = my_joystick.get_axis(3)
         self.Rudder = my_joystick.get_axis(4)
-        self.funnel_CW_button = my_joystick.get_button(4)  # Button 5
-        self.funnel_CCW_button = my_joystick.get_button(5)  # Button 6
-        self.arm_open_button = my_joystick.get_button(6)  # Button 7
-        self.arm_close_button = my_joystick.get_button(7)  # Button 8
+        self.valve = my_joystick.get_button(4)  # Button 5
+
+        self.CW_button = my_joystick.get_button(5)  # Button 6
+        self.CCW_button = my_joystick.get_button(6)  # Button 7
+
+        self.lift_bag = my_joystick.get_button(0)  # Button 1
+
         self.LED1_button = my_joystick.get_button(10)  # Button SE
         self.LED2_button = my_joystick.get_button(11)  # Button ST
 
@@ -184,7 +187,7 @@ class Window(QWidget):
 
         # Initital values
         self.BT = 0
-        self.funnel = 0
+        self.stepper = 0
         self.arm = 0
         global LED1
         global LED2
@@ -246,17 +249,12 @@ class Window(QWidget):
 
 
         # ================================ Manipulators ================================
-        # Funnel
-        if (self.funnel_CW_button == 1):
-            self.funnel = 1
-        elif (self.funnel_CCW_button == 1):
-            self.funnel = 2
+        #stepper
+        if (self.CW_button == 1):
+            self.stepper = 1
+        elif (self.CCW_button == 1):
+            self.stepper = 2
 
-        # Arm
-        if (self.arm_open_button == 1):
-            self.arm = 1
-        elif (self.arm_close_button == 1):
-            self.arm = 2
 
         # LED1
         if (self.LED1_button == 1):
@@ -286,12 +284,12 @@ class Window(QWidget):
 
         self.stringToSend = str([self.back_thruster, self.bck_left_thruster, self.bck_right_thruster,
                                  self.front_thruster, self.fwd_right_thruster, self.fwd_left_thruster,
-                                 self.arm_open_button, self.funnel_CW_button])
+                                 self.lift_bag, self.valve, self.stepper])
 
         # Final string to be sent
         # self.stringToSend = str([self.fwd_left_thruster, self.front_thruster, self.fwd_right_thruster,
         #                          self.bck_right_thruster, self.back_thruster, self.bck_left_thruster,
-        #                          self.arm, self.funnel, self.BT_button1, LED2, self.BT])
+        #                          self.arm, self.stepper, self.BT_button1, LED2, self.BT])
         print(self.stringToSend) # Print final string
 
     def information(self):
