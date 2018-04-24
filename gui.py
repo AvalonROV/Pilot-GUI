@@ -225,18 +225,18 @@ class Window(QWidget):
             self.side_factor = 200 * self.power
 
         self.fwd_left_thruster = int(
-            1500 + self.fwd_factor * self.Y_Axis - self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
-        self.fwd_right_thruster = int(
             1500 - self.fwd_factor * self.Y_Axis + self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
+        self.fwd_right_thruster = int(
+            1500 + self.fwd_factor * self.Y_Axis + self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
         self.bck_left_thruster = int(
-            1500 - self.fwd_factor * self.Y_Axis - self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
+            1500 + self.fwd_factor * self.Y_Axis + self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
         self.bck_right_thruster = int(
-            1500 - self.fwd_factor * self.Y_Axis - self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
+            1500 + self.fwd_factor * self.Y_Axis - self.side_factor * self.X_Axis + self.yaw_factor * self.Yaw)
 
 
         # To go up/down
         self.front_thruster = int(1500 + self.fwd_factor * self.Rudder*-1)
-        self.back_thruster = int(1500 + self.fwd_factor * self.Rudder)
+        self.back_thruster = int(1500 - self.fwd_factor * self.Rudder)
 
         # ------Pitching code------
         """
@@ -282,8 +282,11 @@ class Window(QWidget):
         elif(self.BT_button2 == 1):
             self.BT = 2
 
-        self.stringToSend = str([self.back_thruster, self.bck_left_thruster, self.bck_right_thruster,
-                                 self.front_thruster, self.fwd_right_thruster, self.fwd_left_thruster,
+        #self.stringToSend = str([self.back_thruster, self.bck_left_thruster, self.bck_right_thruster,
+       #                          self.front_thruster, self.fwd_right_thruster, self.fwd_left_thruster,
+        #                         self.lift_bag, self.valve, self.stepper])
+
+        self.stringToSend = str([self.bck_right_thruster, self.fwd_left_thruster, self.front_thruster, self.fwd_right_thruster, self.bck_left_thruster, self.back_thruster,
                                  self.lift_bag, self.valve, self.stepper])
 
         # Final string to be sent
